@@ -14,15 +14,8 @@
       "snapshot_name": "webapp-{{timestamp}}"
     }],
     "provisioners": [ {
-      "type": "shell",
-      "inline" : [
-	"dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y",
-	"sleep 5",
-	"dnf install snapd -y",
-	"sleep 5",
-	"systemctl enable --now snapd.socket",
-	"ln -s /var/lib/snapd/snap /snap"
-      ]
+      "type": "ansible",
+      "playbook_file": "./playbook.yml"
     }
     ]
   }
