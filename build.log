@@ -1,0 +1,38 @@
+[1;32mdigitalocean: output will be in this color.[0m
+
+[1;32m==> digitalocean: Creating temporary RSA SSH key for instance...[0m
+[1;32m==> digitalocean: Importing SSH public key...[0m
+[1;32m==> digitalocean: Creating droplet...[0m
+[1;32m==> digitalocean: Waiting for droplet to become active...[0m
+[1;32m==> digitalocean: Using SSH communicator to connect: 159.223.7.74[0m
+[1;32m==> digitalocean: Waiting for SSH to become available...[0m
+[1;32m==> digitalocean: Connected to SSH![0m
+[1;32m==> digitalocean: Provisioning with Ansible...[0m
+[0;32m    digitalocean: Setting up proxy adapter for Ansible....[0m
+[1;32m==> digitalocean: Executing Ansible: ansible-playbook -e packer_build_name="digitalocean" -e packer_builder_type=digitalocean --ssh-extra-args '-o IdentitiesOnly=yes' -e ansible_ssh_private_key_file=/var/folders/vm/dtm72gzn51z5vhcnfj74cgsc0005vc/T/ansible-key352526598 -i /var/folders/vm/dtm72gzn51z5vhcnfj74cgsc0005vc/T/packer-provisioner-ansible1567874770 /Users/guang.yang/Downloads/int-test/playbook.yml[0m
+[0;32m    digitalocean:[0m
+[0;32m    digitalocean: PLAY [Provision Image] *********************************************************[0m
+[0;32m    digitalocean:[0m
+[0;32m    digitalocean: TASK [Gathering Facts] *********************************************************[0m
+[0;32m    digitalocean: ok: [default][0m
+[0;32m    digitalocean:[0m
+[0;32m    digitalocean: TASK [Enable EPEL Repository on CentOS 8] **************************************[0m
+[0;32m    digitalocean: changed: [default][0m
+[0;32m    digitalocean:[0m
+[0;32m    digitalocean: TASK [install Apache] **********************************************************[0m
+[0;32m    digitalocean: changed: [default][0m
+[0;32m    digitalocean:[0m
+[0;32m    digitalocean: PLAY RECAP *********************************************************************[0m
+[0;32m    digitalocean: default                    : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0[0m
+[0;32m    digitalocean:[0m
+[1;32m==> digitalocean: Gracefully shutting down droplet...[0m
+[1;32m==> digitalocean: Creating snapshot: webapp-1635880445[0m
+[1;32m==> digitalocean: Waiting for snapshot to complete...[0m
+[1;32m==> digitalocean: Destroying droplet...[0m
+[1;32m==> digitalocean: Deleting temporary ssh key...[0m
+[1;32mBuild 'digitalocean' finished after 3 minutes 11 seconds.[0m
+
+==> Wait completed after 3 minutes 11 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> digitalocean: A snapshot was created: 'webapp-1635880445' (ID: 94915214) in regions 'ams3'
