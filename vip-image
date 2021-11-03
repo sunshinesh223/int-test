@@ -1,0 +1,57 @@
+def img_id = ''
+
+pipeline {
+    agent any
+    environment {
+        job_name = "${env.JOB_NAME}".replaceAll("/"," » ")
+        job_basename = "${env.JOB_BASE_NAME}"
+        build_name = "${env.BUILD_DISPLAY_NAME}"
+        build_duration = "${currentBuild.durationString.minus(' and counting')}"
+        failed_color = "#FF0000"
+        success_color = "#6aa84f"
+        build_url_console = "(<${env.BUILD_URL}console|Open console>)"
+        PATH = "/usr/local/bin/:${env.PATH}"
+    }
+    stages {
+        stage('Get all files from git') {
+
+            steps {
+              sh 'rm -rf int-test'
+              git branch: 'master',
+                credentialsId: '00d44bbc-d633-4991-9e9c-f7b205126b2a',
+                url: 'https://github.com/sunshinesh223/int-test.git'
+              }
+        }
+        stage('build image') {
+            environment { 
+                DIGITALOCEAN_TOKEN = credentials('912947f4-d967-4e08-99e4-7a3071209a1d') 
+            }
+            steps {
+              sh './get_image.sh'
+              //script {
+                //img_id = readFile('img_id.txt')
+              //}
+              //echo "${img_id}"
+              sh 'git add img_id.txt'
+              sh 'git commit -m "updated image id"'
+              sh 'git push origin master'
+              }
+        }
+
+
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+    //    failure {
+    //        slackSend (color: failed_color, message:" $job_name - $build_name Failure after ${currentBuild.durationString.minus(' and counting')} $build_url_console", channel: "int-test")
+    //    }
+    //    success {
+    //        slackSend (color: success_color, message:" $job_name - $build_name succeeded after ${currentBuild.durationString.minus(' and counting')} $build_url_console", channel: "int-test")
+    //    }
+    //    fixed {
+    //        slackSend (color: success_color, message:" $job_name - $build_name fixed $build_url_console", channel: "int-test")
+    //    }
+    }
+}
