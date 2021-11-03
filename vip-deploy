@@ -32,7 +32,7 @@ pipeline {
                 img_id = readFile('img_id.txt')
                 
               }
-              sh 'doctl compute droplet create --image 94902255 --size s-1vcpu-1gb --ssh-keys 32245440 --region ams3 test.com'
+              sh './deploy.sh'
               }
         }
 
