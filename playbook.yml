@@ -13,3 +13,7 @@
       package:
         name: 'httpd'
         state: present
+    - name: up to date for all packages
+      dnf:
+        name: '*'
+        state: latest
